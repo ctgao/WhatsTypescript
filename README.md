@@ -1,11 +1,11 @@
 # WhatsTypescript
-what is typescript?
+What is Typescript?
 
-there is this language, [Typescript](https://www.typescriptlang.org).
-Microsoft maintains it, it's become a very intersting contender for the best new front end language.
-It's different in that it is is _strongly-typed_ but at it's code it is bascially Javascript.
+There is this language, [Typescript](https://www.typescriptlang.org).
+Microsoft maintains it, it's become a very interesting contender for the best new front end language.
+It's different in that it is _strongly-typed_ but at it's core it is basically Javascript.
 
-You job is learn enough about Typescript to build a pretty simple app.
+Your job is to learn enough about Typescript to build a pretty simple app.
 
 Build a "web based" Dictionary app. 
 The app has a single page, like a very simple google interface, where the user types in an english word and gets a defintion of the word.
