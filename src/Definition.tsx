@@ -1,12 +1,25 @@
+import { useQuery } from "@tanstack/react-query";
+import fetchDefinitions from "./fetchDefinitions";
+import { DictionaryAPIResponse } from "./APIResponseTypes";
+
 const Definition = ({ word }: { word: string }) => {
   const displayWord = word ? word : "definition";
+  const results = useQuery<DictionaryAPIResponse>(
+    ["define", 0],
+    fetchDefinitions,
+  );
 
   return (
     <main className="container">
       <div className="bg-light p-5 rounded">
-        <h1>{displayWord.charAt(0).toUpperCase() + displayWord.substring(1).toLowerCase()}</h1>
+        <h1>
+          {displayWord.charAt(0).toUpperCase() +
+            displayWord.substring(1).toLowerCase()}
+        </h1>
         <p className="lead">
-          Use this part of the page to present your results from the API call.
+          {results.data
+            ? "Have data"
+            : "Use this part of the page to present your results from the API call."}
         </p>
         <ul className="list-unstyled">
           <li>This is a list. Your word could go here.</li>

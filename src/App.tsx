@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
+import { useState } from "react";
 
 import Definition from "./Definition";
-import { useState } from "react";
 
 const App = () => {
   const [word, setWord] = useState("");
