@@ -1,0 +1,14 @@
+{
+  // this is the typescript configs we're using
+  "compilerOptions": {
+    "target": "ES2022",
+    "jsx": "react-jsx",
+    "module": "ES2022",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    // strict mode is good when you're migrating an app to typescript
+    "strict": true,
+    "skipLibCheck": true,
+  }
+}
