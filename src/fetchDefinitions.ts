@@ -1,24 +1,22 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { QueryFunction } from "@tanstack/react-query";
 import { DictionaryAPIResponse } from "./APIResponseTypes";
 
-const fetchDefinitions: QueryFunction<DictionaryAPIResponse, ["define", number]> = async ({
-  queryKey,
-}) => {
-  // const [queryType, defineWord] = queryKey;
-  const [defineWord] = queryKey;
+const fetchDefinitions: QueryFunction<
+  DictionaryAPIResponse,
+  ["define", string]
+> = async ({ queryKey }) => {
+  const [queryType, word] = queryKey;
 
-  return [];
-  // if (!defineWord) return [];
+  if (!word) return [];
 
   const res = await fetch(
-    `https://api.dictionaryapi.dev/api/v2/entries/en/${defineWord}`,
+    `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`,
   );
 
-  // if (!res.ok) {
-  //   // throw new Error(`${queryType}-${defineWord} not okay`);
-  //   throw new Error(`define-${defineWord} not okay`);
-  // }
-  // return res.json();
+  if (!res.ok) console.error(`${queryType}-${word} is not okay`);
+
+  return res.json();
 };
 
 export default fetchDefinitions;

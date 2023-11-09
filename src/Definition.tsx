@@ -1,13 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchDefinitions from "./fetchDefinitions";
-import { DictionaryAPIResponse } from "./APIResponseTypes";
 
 const Definition = ({ word }: { word: string }) => {
-  const displayWord = word ? word : "definition";
-  const results = useQuery<DictionaryAPIResponse>(
-    ["define", 0],
-    fetchDefinitions,
-  );
+  const displayWord = word ? word : "the word to be searched";
+  const { data: wordResults, isLoading } = useQuery({
+    queryKey: ["define", word],
+    queryFn: fetchDefinitions,
+  });
+
+  if (isLoading) {
+    return (
+      <main className="container">
+        <h1>Currently Loading</h1>
+      </main>
+    );
+  }
 
   return (
     <main className="container">
@@ -17,8 +24,8 @@ const Definition = ({ word }: { word: string }) => {
             displayWord.substring(1).toLowerCase()}
         </h1>
         <p className="lead">
-          {results.data
-            ? "Have data"
+          {wordResults && wordResults[0]
+            ? wordResults[0].sourceUrls
             : "Use this part of the page to present your results from the API call."}
         </p>
         <ul className="list-unstyled">

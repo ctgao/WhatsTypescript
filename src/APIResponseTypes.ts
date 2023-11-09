@@ -1,10 +1,18 @@
 export type DictionaryAPIResponse = WordDefined[];
 
+// putting this in now, but won't actually implement usage of it until later bc it's kinda complex
+export type FailedDictionarySearch = {
+  title: "No Definitions Found";
+  message: string;
+  resolution: string;
+};
+
 export interface WordDefined {
   word: string; // specifically a lowercase word
+  phonetic: string;
   phonetics: Phoneme[];
   meanings: WordMeaning[];
-  sourceUrl: string;
+  sourceUrls: string;
 }
 
 export interface Phoneme {
