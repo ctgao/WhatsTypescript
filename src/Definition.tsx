@@ -1,12 +1,26 @@
 import { useQuery } from "@tanstack/react-query";
 import fetchDefinitions from "./fetchDefinitions";
+import MeaningCards from "./MeaningCards";
 
 const Definition = ({ word }: { word: string }) => {
-  const displayWord = word ? word : "the word to be searched";
+  const displayWord = word ? word : "the word to define";
   const { data: wordResults, isLoading } = useQuery({
     queryKey: ["define", word],
     queryFn: fetchDefinitions,
   });
+
+  let phoneticText = "";
+  if (wordResults && wordResults[0]) {
+    if (wordResults[0].phonetic) {
+      phoneticText = wordResults[0].phonetic;
+    } else if (wordResults[0].phonetics) {
+      for (let i = 0; i < wordResults[0].phonetics.length; i++) {
+        phoneticText = wordResults[0].phonetics[i].text ?? "";
+      }
+    } else {
+      phoneticText = "No Phonetics found";
+    }
+  }
 
   if (isLoading) {
     return (
@@ -23,28 +37,13 @@ const Definition = ({ word }: { word: string }) => {
           {displayWord.charAt(0).toUpperCase() +
             displayWord.substring(1).toLowerCase()}
         </h1>
-        <p className="lead">
-          {wordResults && wordResults[0]
-            ? wordResults[0].sourceUrls
-            : "Use this part of the page to present your results from the API call."}
-        </p>
-        <ul className="list-unstyled">
-          <li>This is a list. Your word could go here.</li>
-          <li>It appears completely un-styled.</li>
-          <li>Maybe your multiple definitions of the word are here?</li>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
-          <li>Structurally, it's still a list.</li>
-          <li>However, this style only applies to immediate child elements.</li>
-          <li>
-            Nested lists: (maybe synonyms and antonyms?)
-            <ul>
-              <li>are unaffected by this style</li>
-              <li>will still show a bullet</li>
-              <li>and have appropriate left margin</li>
-            </ul>
-          </li>
-          <li>This may still come in handy in some situations.</li>
-        </ul>
+        <p className="lead">{word ? phoneticText : "Phonetic text here"}</p>
+        <h5>Definitions:</h5>
+        {wordResults && wordResults[0] ? (
+          <MeaningCards meanings={wordResults[0].meanings} />
+        ) : (
+          <p>Definition Info goes here</p>
+        )}
       </div>
     </main>
   );

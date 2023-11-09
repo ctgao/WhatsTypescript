@@ -9,7 +9,7 @@ export type FailedDictionarySearch = {
 
 export interface WordDefined {
   word: string; // specifically a lowercase word
-  phonetic: string;
+  phonetic?: string;
   phonetics: Phoneme[];
   meanings: WordMeaning[];
   sourceUrls: string;
